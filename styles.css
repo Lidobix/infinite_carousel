@@ -1,0 +1,45 @@
+body {
+  background-color: aqua;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* #mainContainer {
+  height: 10%;
+  width: 90%;
+  background-color: brown;
+  position: absolute;
+} */
+
+#squareContainer {
+  position: absolute;
+  overflow-x: hidden;
+
+  width: 100%;
+}
+
+ul {
+  /* overflow: hidden; */
+  background-color: orange;
+  /* position: absolute; */
+  /* display: flex; */
+  margin: 0;
+  padding: 0;
+  /* width: 100%; */
+
+  /* left: 0; */
+  height: 40px;
+  /* padding-left: 100vw; */
+}
+
+li {
+  background-color: chartreuse;
+
+  height: 100%;
+  color: white;
+  position: absolute;
+  font-size: 22;
+  font-weight: bolder;
+  list-style-type: none;
+}
