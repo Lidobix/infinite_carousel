@@ -17,4 +17,41 @@ const entryDatas = [
 
 const slider = new Slider(entryDatas, duration);
 
-slider.start();
+const authorizedOrientations = ['landscape-primary', 'landscape-secondary'];
+const message = document.getElementById('message');
+const ul = document.querySelector('ul');
+
+const showMessage = () => {
+  message.classList.remove('hidden');
+  message.classList.add('visible');
+
+  ul.classList.remove('visible');
+  ul.classList.add('hidden');
+};
+
+const showList = () => {
+  message.classList.add('hidden');
+  message.classList.remove('visible');
+
+  ul.classList.add('visible');
+  ul.classList.remove('hidden');
+};
+
+const isLandscape = () => {
+  return authorizedOrientations.includes(window.screen.orientation.type);
+};
+
+if (!isLandscape() && window.screen.width < 500) {
+  showMessage();
+} else {
+  slider.start();
+}
+
+window.addEventListener('orientationchange', () => {
+  if (isLandscape()) {
+    showList();
+    slider.start();
+  } else {
+    showMessage();
+  }
+});

@@ -27,3 +27,11 @@ li {
   font-weight: bolder;
   list-style-type: none;
 }
+
+.visible {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}

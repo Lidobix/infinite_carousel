@@ -6,15 +6,7 @@ export class Slider {
     this.entryDatas = entryDatas;
     this.duration = duration;
     this.displayedDatas = [];
-    this.screenWidth = window.screen.width;
-  }
-
-  getAnimationParams(position) {
-    const speed = 100 / this.duration;
-    const distance = 100 * (position / this.screenWidth) + ITEM_WIDTH;
-    const duration = distance / speed;
-
-    return { duration, distance };
+    this.screenWidth = window.innerWidth;
   }
 
   initDatas() {
@@ -29,6 +21,14 @@ export class Slider {
         this.displayedDatas = this.displayedDatas.concat(this.entryDatas);
       }
     }
+  }
+
+  getAnimationParams(position) {
+    const speed = 100 / this.duration;
+    const distance = 100 * (position / this.screenWidth) + ITEM_WIDTH;
+    const duration = distance / speed;
+
+    return { duration, distance };
   }
 
   drawList() {
@@ -69,14 +69,6 @@ export class Slider {
     };
 
     ul.appendChild(li);
-  }
-
-  events() {
-    window.addEventListener('resize', () => {
-      if (window.innerWidth / window.screen.width < 0.9) {
-        console.log('trop petit');
-      }
-    });
   }
 
   start() {
