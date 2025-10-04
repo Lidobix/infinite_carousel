@@ -44,6 +44,7 @@ const isLandscape = () => {
 if (!isLandscape() && window.screen.width < 500) {
   showMessage();
 } else {
+  showList();
   slider.start();
 }
 
