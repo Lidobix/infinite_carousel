@@ -2,7 +2,7 @@ export const setRandomList = (params) => {
   const { qty, max } = params;
   const numbers = [];
 
-  for (let i = 0; i <= qty; i++) {
+  for (let i = 0; i < qty; i++) {
     const chooseNewNumber = () => {
       const number = getRandomInt(0, max);
 
