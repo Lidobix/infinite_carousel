@@ -1,5 +1,5 @@
 const UNIT = 'vw';
-const ITEM_WIDTH = 50;
+const ITEM_WIDTH = 30;
 
 export class Slider {
   constructor(entryDatas, duration) {
@@ -21,6 +21,8 @@ export class Slider {
         this.displayedDatas = this.displayedDatas.concat(this.entryDatas);
       }
     }
+
+    console.log(this.displayedDatas);
   }
 
   getAnimationParams(position) {
@@ -44,14 +46,21 @@ export class Slider {
   createListItem(data) {
     const ul = document.querySelector('ul');
     const li = document.createElement('li');
+    const img = document.createElement('img');
+    const div = document.createElement('div');
+    const name = document.createComment('span');
+    const age = document.createComment('span');
+    const specie = document.createComment('span');
+    const episodes = document.createComment('span');
 
     const endLeft =
       ul.children.length > 0
         ? ul.lastElementChild.getBoundingClientRect().right
         : this.screenWidth;
 
-    li.innerText = data.text;
-    li.style.backgroundColor = data.color;
+    const card = this.createCard(data);
+    li.appendChild(card);
+
     li.style.width = ITEM_WIDTH + UNIT;
     li.style.left = `${(100 * endLeft) / this.screenWidth}${UNIT}`;
 
@@ -69,6 +78,30 @@ export class Slider {
     };
 
     ul.appendChild(li);
+  }
+
+  createCard(data) {
+    const card = document.createElement('div');
+    const description = document.createElement('div');
+    const name = document.createElement('span');
+    const species = document.createElement('span');
+    const episodes = document.createElement('span');
+    const image = document.createElement('img');
+
+    name.textContent = `nom : ${data.name}`;
+    species.textContent = `espèce : ${data.species}`;
+    episodes.textContent = `episodes : ${data.episode.length}`;
+    image.src = data.image;
+
+    card.append(image);
+    description.append(name);
+    description.append(species);
+    description.append(episodes);
+    card.appendChild(description);
+
+    card.classList.add('card');
+
+    return card;
   }
 
   start() {

@@ -1,3 +1,7 @@
+html {
+  --height_slider: 30vh;
+}
+
 body {
   background-color: aqua;
   overflow: hidden;
@@ -15,7 +19,7 @@ ul {
   background-color: orange;
   margin: 0;
   padding: 0;
-  height: 40px;
+  height: var(--height_slider);
 }
 
 li {
@@ -34,4 +38,17 @@ li {
 
 .hidden {
   display: none;
+}
+
+.card {
+  display: flex;
+}
+
+.card img {
+  height: var(--height_slider);
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
 }
