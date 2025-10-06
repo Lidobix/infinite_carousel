@@ -84,20 +84,17 @@ export class Slider {
     const card = document.createElement('div');
     const description = document.createElement('div');
     const name = document.createElement('span');
-    // const age = document.createElement('span');
     const species = document.createElement('span');
     const episodes = document.createElement('span');
     const image = document.createElement('img');
 
     name.textContent = `nom : ${data.name}`;
-    // age.textContent = `age : ${data.age}`;
     species.textContent = `espèce : ${data.species}`;
     episodes.textContent = `episodes : ${data.episode.length}`;
     image.src = data.image;
 
     card.append(image);
     description.append(name);
-    // card.append(age);
     description.append(species);
     description.append(episodes);
     card.appendChild(description);

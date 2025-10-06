@@ -24,3 +24,27 @@ function getRandomInt(min, max) {
   const maxFloored = Math.floor(max);
   return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
 }
+
+export const isLandscape = () => {
+  const authorizedOrientations = ['landscape-primary', 'landscape-secondary'];
+  return authorizedOrientations.includes(window.screen.orientation.type);
+};
+
+const message = document.getElementById('message');
+const ul = document.querySelector('ul');
+
+export const showMessage = () => {
+  message.classList.remove('hidden');
+  message.classList.add('visible');
+
+  ul.classList.remove('visible');
+  ul.classList.add('hidden');
+};
+
+export const showList = () => {
+  message.classList.add('hidden');
+  message.classList.remove('visible');
+
+  ul.classList.add('visible');
+  ul.classList.remove('hidden');
+};
