@@ -1,4 +1,5 @@
-import { Slider } from './slider.mjs';
+import { Slider } from './modules/slider.mjs';
+import { Characters } from './modules/datas.mjs';
 
 const duration = 20000;
 
@@ -14,6 +15,12 @@ const entryDatas = [
   { index: 8, color: 'brown', text: '8' },
   { index: 9, color: 'magenta', text: '9' },
 ];
+
+const characters = new Characters();
+
+characters.get();
+
+// return;
 
 const slider = new Slider(entryDatas, duration);
 
