@@ -4,24 +4,11 @@ const gap = 3;
 
 export class Slider {
   constructor(entryDatas, duration) {
+    this.index;
     this.entryDatas = entryDatas;
     this.duration = duration;
-    this.displayedDatas = [];
     this.screenWidth = window.innerWidth;
-  }
-
-  initDatas() {
-    this.displayedDatas = this.entryDatas;
-
-    const entryDatasWidth = this.entryDatas.length * ITEM_WIDTH;
-    const SLOTS_DISPO = 1 + Math.ceil((100 - entryDatasWidth) / ITEM_WIDTH);
-    const listToAdd = Math.ceil(SLOTS_DISPO / this.entryDatas.length);
-
-    if (SLOTS_DISPO > 0) {
-      for (let i = 0; i < listToAdd; i++) {
-        this.displayedDatas = this.displayedDatas.concat(this.entryDatas);
-      }
-    }
+    this.cardsQty = 1 + Math.ceil(100 / (ITEM_WIDTH + gap));
   }
 
   getAnimationParams(position) {
@@ -33,16 +20,27 @@ export class Slider {
   }
 
   drawList() {
-    if (!this.displayedDatas.length) {
-      return;
+    for (let i = 0; i < this.cardsQty; i++) {
+      this.createListItem();
     }
-
-    this.displayedDatas.forEach((data) => {
-      this.createListItem(data);
-    });
   }
 
-  createListItem(data) {
+  updateDataIndex() {
+    if (this.index === this.entryDatas.length - 1 || this.index === undefined) {
+      this.index = 0;
+      return;
+    }
+    this.index = this.index + 1;
+  }
+
+  getDatas() {
+    this.updateDataIndex();
+    return this.entryDatas[this.index];
+  }
+
+  createListItem() {
+    const data = this.getDatas();
+
     const ul = document.querySelector('ul');
     const li = document.createElement('li');
 
@@ -67,7 +65,7 @@ export class Slider {
 
     animation.onfinish = () => {
       ul.firstElementChild.remove();
-      this.createListItem(data);
+      this.createListItem();
     };
 
     ul.appendChild(li);
@@ -121,7 +119,7 @@ export class Slider {
   }
 
   start() {
-    this.initDatas();
+    // this.initDatas();
     this.drawList();
   }
 }
