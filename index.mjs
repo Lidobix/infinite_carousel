@@ -3,7 +3,9 @@ import { Characters } from './modules/characters.mjs';
 import { isLandscape, showList, showMessage } from './modules/utils.mjs';
 
 const duration = 20000;
-const characters = new Characters(30);
+const cardsQty = 15;
+
+const characters = new Characters(cardsQty);
 
 const launchSlider = () => {
   characters.get().then((result) => {
