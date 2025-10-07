@@ -13,7 +13,7 @@ export class Slider {
 
   getAnimationParams(position) {
     const speed = 100 / this.duration;
-    const distance = 100 * (position / this.screenWidth) + ITEM_WIDTH;
+    const distance = gap + 100 * (position / this.screenWidth) + ITEM_WIDTH;
     const duration = distance / speed;
 
     return { duration, distance };
@@ -38,6 +38,18 @@ export class Slider {
     return this.entryDatas[this.index];
   }
 
+  toggleSlider(run) {
+    const liArray = document.querySelectorAll('li');
+    liArray.forEach((li) => {
+      const animation = li.getAnimations()[0];
+      if (run) {
+        animation.play();
+      } else {
+        animation.pause();
+      }
+    });
+  }
+
   createListItem() {
     const data = this.getDatas();
 
@@ -55,9 +67,18 @@ export class Slider {
     li.style.width = ITEM_WIDTH + UNIT;
     li.style.left = `${gap + (100 * endLeft) / this.screenWidth}${UNIT}`;
 
+    li.addEventListener('mouseenter', () => {
+      this.toggleSlider(false);
+    });
+
+    li.addEventListener('mouseleave', () => {
+      this.toggleSlider(true);
+    });
+
     const { distance, duration } = this.getAnimationParams(endLeft);
+
     const animation = li.animate(
-      [{ transform: `translateX(-${gap + distance}${UNIT})` }],
+      [{ transform: `translateX(-${distance}${UNIT})` }],
       {
         duration,
       }
@@ -67,7 +88,6 @@ export class Slider {
       ul.firstElementChild.remove();
       this.createListItem();
     };
-
     ul.appendChild(li);
   }
 
@@ -119,7 +139,6 @@ export class Slider {
   }
 
   start() {
-    // this.initDatas();
     this.drawList();
   }
 }
