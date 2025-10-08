@@ -13,14 +13,6 @@ export class Slider {
     this.ul = document.querySelector('ul');
   }
 
-  getAnimationParams(position) {
-    const speed = 100 / this.translationDuration;
-    const distance = gap + 100 * (position / this.screenWidth) + ITEM_WIDTH;
-    const duration = distance / speed;
-
-    return { duration, distance };
-  }
-
   drawList() {
     this.ul.style.gap = gap + UNIT;
     for (let i = 0; i < this.cardsQty; i++) {
