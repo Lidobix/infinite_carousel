@@ -134,7 +134,7 @@ export class Slider {
     }`;
     episodesP.classList.add('episodes');
 
-    const statusP = document.createElement('p');
+    const statusP = document.createElement('span');
     statusP.innerText = `${statusIcon[data.status.toLowerCase()]}`;
     statusP.classList.add('status');
 

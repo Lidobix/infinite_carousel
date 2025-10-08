@@ -67,6 +67,7 @@ li {
   background-color: var(--background_card);
   overflow: hidden;
   position: relative;
+  padding: 0.7rem 0 2rem 0;
 
   border-radius: 1rem;
   -webkit-border-radius: 1rem;
@@ -116,6 +117,7 @@ li {
 .name {
   font-family: 'bebas_neue';
   font-size: 2rem;
+  padding: 0 0.2rem;
 }
 
 .episodes {
@@ -127,10 +129,9 @@ li {
   position: absolute;
   text-shadow: 0.1rem 0.1rem 1rem var(--blue), 0.1rem 0.1rem 1rem var(--blue),
     0.1rem 0.1rem 1rem var(--blue), 0.1rem 0.1rem 1rem var(--blue);
-  font-size: 1.7rem;
-  top: 8%;
+  font-size: 1.5rem;
+  top: 12%;
   left: 70%;
-  margin: 0;
 }
 
 @media (min-width: 500px) {
