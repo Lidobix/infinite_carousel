@@ -6,13 +6,15 @@ export class Slider {
   constructor(entryDatas, duration) {
     this.index;
     this.entryDatas = entryDatas;
-    this.duration = duration;
+    this.translationDuration = duration;
     this.screenWidth = window.innerWidth;
     this.cardsQty = 1 + Math.ceil(100 / (ITEM_WIDTH + gap));
+    this.translationDistance = 100 + ITEM_WIDTH + gap;
+    this.ul = document.querySelector('ul');
   }
 
   getAnimationParams(position) {
-    const speed = 100 / this.duration;
+    const speed = 100 / this.translationDuration;
     const distance = gap + 100 * (position / this.screenWidth) + ITEM_WIDTH;
     const duration = distance / speed;
 
@@ -20,8 +22,9 @@ export class Slider {
   }
 
   drawList() {
+    this.ul.style.gap = gap + UNIT;
     for (let i = 0; i < this.cardsQty; i++) {
-      this.createListItem();
+      this.addListItem();
     }
   }
 
@@ -40,55 +43,105 @@ export class Slider {
 
   toggleSlider(run) {
     const liArray = document.querySelectorAll('li');
+    // console.log('li : ', liArray, run);
     liArray.forEach((li) => {
       const animation = li.getAnimations()[0];
       if (run) {
-        animation.play();
+        // animation.play();
       } else {
-        animation.pause();
+        // animation.pause();
       }
     });
   }
 
-  createListItem() {
+  addListItem() {
     const data = this.getDatas();
-
-    const ul = document.querySelector('ul');
     const li = document.createElement('li');
 
     const endLeft =
-      ul.children.length > 0
-        ? ul.lastElementChild.getBoundingClientRect().right
+      this.ul.children.length > 0
+        ? this.ul.lastElementChild.getBoundingClientRect().right
         : this.screenWidth;
 
     const card = this.createCard(data);
     li.appendChild(card);
 
     li.style.width = ITEM_WIDTH + UNIT;
-    li.style.left = `${gap + (100 * endLeft) / this.screenWidth}${UNIT}`;
 
-    li.addEventListener('mouseenter', () => {
+    li.addEventListener('mouseenter', (e) => {
+      // console.log('mouseenter');
       this.toggleSlider(false);
+      // console.log(e);
+      let left = li.getBoundingClientRect().left;
+      // console.log('left measured', left);
+      // left = (100 * left) / this.screenWidth;
+
+      // li.style.left = left + 'px';
+
+      // console.log(li.style.left);
+      // console.log('endleft', endLeft);
+      // li.style.transform = 'scale(2)';
+      // const zoom = li.animate([{ transform: `scale(${1.5})` }], {
+      //   duration: 500,
+      // });
+
+      // zoom.onfinish(() => {});
     });
+
+    // li.addEventListener('touchstart', () => {
+    //   console.log('touchestarts');
+
+    //   this.toggleSlider(false);
+    // });
+
+    // li.addEventListener('touchend', () => {
+    //   console.log('touchened');
+    //   this.toggleSlider(true);
+    // });
 
     li.addEventListener('mouseleave', () => {
+      // console.log('mouseleave');
+      // li.style.transform = 'scale(1)';
+
+      // const unZoom = li.animate([{ transform: `scale(1)` }], {
+      //   duration: 500,
+      // });
+
+      // unZoom.onfinish = () => {
       this.toggleSlider(true);
+      // };
     });
 
-    const { distance, duration } = this.getAnimationParams(endLeft);
+    this.ul.appendChild(li);
+  }
 
-    const animation = li.animate(
-      [{ transform: `translateX(-${distance}${UNIT})` }],
+  controlAnimation() {
+    const firstElement = this.ul.firstElementChild;
+    const firstElementRight = firstElement.getBoundingClientRect().right;
+
+    if (firstElementRight < 0) {
+      const animation = this.ul.getAnimations()[0];
+
+      animation.cancel();
+      this.ul.style.left =
+        firstElementRight + (gap * this.screenWidth) / 100 + 'px';
+      this.ul.firstElementChild.remove();
+      this.addListItem();
+      this.launchAnimation();
+    }
+
+    window.requestAnimationFrame(() => {
+      this.controlAnimation();
+    });
+  }
+
+  launchAnimation() {
+    this.ul.animate(
+      [{ transform: `translateX(-${this.translationDistance}vw)` }],
       {
-        duration,
+        duration: this.translationDuration,
       }
     );
-
-    animation.onfinish = () => {
-      ul.firstElementChild.remove();
-      this.createListItem();
-    };
-    ul.appendChild(li);
   }
 
   createCard(data) {
@@ -140,5 +193,7 @@ export class Slider {
 
   start() {
     this.drawList();
+    this.launchAnimation();
+    this.controlAnimation();
   }
 }
