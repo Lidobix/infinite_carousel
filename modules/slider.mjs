@@ -42,74 +42,40 @@ export class Slider {
   }
 
   toggleSlider(run) {
-    const liArray = document.querySelectorAll('li');
-    // console.log('li : ', liArray, run);
-    liArray.forEach((li) => {
-      const animation = li.getAnimations()[0];
-      if (run) {
-        // animation.play();
-      } else {
-        // animation.pause();
-      }
-    });
+    const ulAnimation = this.ul.getAnimations()[0];
+    if (run) {
+      ulAnimation.play();
+    } else {
+      ulAnimation.pause();
+    }
   }
 
   addListItem() {
     const data = this.getDatas();
-    const li = document.createElement('li');
-
-    const endLeft =
-      this.ul.children.length > 0
-        ? this.ul.lastElementChild.getBoundingClientRect().right
-        : this.screenWidth;
-
     const card = this.createCard(data);
+
+    const li = document.createElement('li');
     li.appendChild(card);
 
     li.style.width = ITEM_WIDTH + UNIT;
 
     li.addEventListener('mouseenter', (e) => {
-      // console.log('mouseenter');
       this.toggleSlider(false);
-      // console.log(e);
-      let left = li.getBoundingClientRect().left;
-      // console.log('left measured', left);
-      // left = (100 * left) / this.screenWidth;
-
-      // li.style.left = left + 'px';
-
-      // console.log(li.style.left);
-      // console.log('endleft', endLeft);
-      // li.style.transform = 'scale(2)';
-      // const zoom = li.animate([{ transform: `scale(${1.5})` }], {
-      //   duration: 500,
-      // });
-
-      // zoom.onfinish(() => {});
+      li.style.zIndex = '10';
+      li.animate([{ transform: `scale(1.3)` }], {
+        duration: 100,
+        fill: 'forwards',
+      });
     });
 
-    // li.addEventListener('touchstart', () => {
-    //   console.log('touchestarts');
-
-    //   this.toggleSlider(false);
-    // });
-
-    // li.addEventListener('touchend', () => {
-    //   console.log('touchened');
-    //   this.toggleSlider(true);
-    // });
-
     li.addEventListener('mouseleave', () => {
-      // console.log('mouseleave');
-      // li.style.transform = 'scale(1)';
+      li.style.zIndex = '1';
+      li.animate([{ transform: `scale(1)` }], {
+        duration: 50,
+        fill: 'forwards',
+      });
 
-      // const unZoom = li.animate([{ transform: `scale(1)` }], {
-      //   duration: 500,
-      // });
-
-      // unZoom.onfinish = () => {
       this.toggleSlider(true);
-      // };
     });
 
     this.ul.appendChild(li);
@@ -122,11 +88,12 @@ export class Slider {
     if (firstElementRight < 0) {
       const animation = this.ul.getAnimations()[0];
 
-      animation.cancel();
       this.ul.style.left =
         firstElementRight + (gap * this.screenWidth) / 100 + 'px';
       this.ul.firstElementChild.remove();
       this.addListItem();
+
+      animation.cancel();
       this.launchAnimation();
     }
 
