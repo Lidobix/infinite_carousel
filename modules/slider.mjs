@@ -1,6 +1,7 @@
 const UNIT = 'vw';
 const ITEM_WIDTH = 15;
 const gap = 3;
+import { getCssValue } from './utils.mjs';
 
 export class Slider {
   constructor(entryDatas, duration) {
@@ -14,6 +15,8 @@ export class Slider {
   }
 
   drawList() {
+    getCssValue('li', ['width']);
+
     this.ul.style.gap = gap + UNIT;
     for (let i = 0; i < this.cardsQty; i++) {
       this.addListItem();
