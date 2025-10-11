@@ -1,23 +1,48 @@
-const UNIT = 'vw';
-const ITEM_WIDTH = 15;
-const gap = 3;
-
 export class Slider {
   constructor(entryDatas, duration) {
-    this.index;
     this.entryDatas = entryDatas;
-    this.translationDuration = duration;
-    this.screenWidth = window.innerWidth;
-    this.cardsQty = 1 + Math.ceil(100 / (ITEM_WIDTH + gap));
-    this.translationDistance = 100 + ITEM_WIDTH + gap;
-    this.ul = document.querySelector('ul');
+    this.duration = duration;
+    this.listQty = 10;
+    this.ul;
+    this.liWidth = 0;
+    this.ulWidth = 0;
+    this.ulGap = 0;
+    this.slider = document.getElementById('slider');
+    this.cssSet = false;
+    this.index;
+    this.sliderPaused = false;
+  }
+
+  setCSSParams() {
+    const liElement = document.querySelector('li');
+    this.liWidth = parseFloat(
+      window.getComputedStyle(liElement).getPropertyValue('width')
+    );
+
+    this.ulGap = parseFloat(
+      window.getComputedStyle(this.slider).getPropertyValue('gap')
+    );
+
+    this.cssSet = true;
+  }
+
+  drawSlider() {
+    for (let i = 0; i < this.listQty; i++) {
+      this.drawList();
+    }
   }
 
   drawList() {
-    this.ul.style.gap = gap + UNIT;
-    for (let i = 0; i < this.cardsQty; i++) {
+    this.ul = document.createElement('ul');
+    this.ulWidth = 0;
+
+    this.slider.append(this.ul);
+    while (this.ulWidth < window.innerWidth) {
+      this.ulWidth = this.ul.offsetWidth;
       this.addListItem();
     }
+
+    this.ul.style.gap = this.ulGap + 'px';
   }
 
   updateDataIndex() {
@@ -33,26 +58,31 @@ export class Slider {
     return this.entryDatas[this.index];
   }
 
-  toggleSlider(run) {
-    const ulAnimation = this.ul.getAnimations()[0];
-    if (run) {
-      ulAnimation.play();
+  toggleSlider() {
+    const sliderAnimation = this.slider.getAnimations()[0];
+
+    if (this.sliderPaused) {
+      sliderAnimation.play();
     } else {
-      ulAnimation.pause();
+      sliderAnimation.pause();
     }
+
+    this.sliderPaused = !this.sliderPaused;
   }
 
   addListItem() {
+    const li = document.createElement('li');
+    this.ul.appendChild(li);
+    if (!this.cssSet) {
+      this.setCSSParams();
+    }
+
     const data = this.getDatas();
     const card = this.createCard(data);
-
-    const li = document.createElement('li');
     li.appendChild(card);
 
-    li.style.width = ITEM_WIDTH + UNIT;
-
     li.addEventListener('mouseenter', (e) => {
-      this.toggleSlider(false);
+      this.toggleSlider();
       li.style.zIndex = '10';
       li.animate([{ transform: `scale(1.3)` }], {
         duration: 100,
@@ -67,38 +97,42 @@ export class Slider {
         fill: 'forwards',
       });
 
-      this.toggleSlider(true);
+      this.toggleSlider();
     });
-
-    this.ul.appendChild(li);
   }
 
-  controlAnimation() {
-    const firstElement = this.ul.firstElementChild;
-    const firstElementRight = firstElement.getBoundingClientRect().right;
+  controlSliderAnimation() {
+    const firstList = this.slider.children[0];
+    const firstListRight = firstList.getBoundingClientRect().right;
 
-    if (firstElementRight < 0) {
-      const animation = this.ul.getAnimations()[0];
+    if (firstListRight < 0) {
+      const sliderAnimation = this.slider.getAnimations()[0];
+      this.slider.style.left = firstListRight + this.ulGap + 'px';
 
-      this.ul.style.left =
-        firstElementRight + (gap * this.screenWidth) / 100 + 'px';
-      this.ul.firstElementChild.remove();
-      this.addListItem();
+      firstList.remove();
+      this.drawList();
 
-      animation.cancel();
+      sliderAnimation.cancel();
       this.launchAnimation();
     }
 
     window.requestAnimationFrame(() => {
-      this.controlAnimation();
+      this.controlSliderAnimation();
     });
   }
 
   launchAnimation() {
-    this.ul.animate(
-      [{ transform: `translateX(-${this.translationDistance}vw)` }],
+    const distance = this.ul.offsetWidth * this.ul.children.length + this.ulGap;
+    const speed = window.innerWidth / this.duration;
+
+    this.slider.animate(
+      [
+        {
+          transform: `translateX(-${distance}px)`,
+        },
+      ],
       {
-        duration: this.translationDuration,
+        duration: distance / speed,
       }
     );
   }
@@ -131,7 +165,7 @@ export class Slider {
     statusP.classList.add('status');
 
     const imgContainer = document.createElement('div');
-    imgContainer.style.height = `${ITEM_WIDTH}vw`;
+    imgContainer.style.height = `${this.liWidth}px`;
     imgContainer.classList.add('img_container');
 
     const _image = document.createElement('div');
@@ -151,8 +185,8 @@ export class Slider {
   }
 
   start() {
-    this.drawList();
+    this.drawSlider();
     this.launchAnimation();
-    this.controlAnimation();
+    this.controlSliderAnimation();
   }
 }
