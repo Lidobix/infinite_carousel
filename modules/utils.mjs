@@ -31,22 +31,22 @@ export const isLandscape = () => {
 };
 
 const message = document.getElementById('message');
-const ul = document.querySelector('ul');
+const slider = document.getElementById('slider');
 
 export const showMessage = () => {
   message.classList.remove('hidden');
   message.classList.add('visible');
 
-  ul.classList.remove('visible');
-  ul.classList.add('hidden');
+  slider.classList.remove('visible');
+  slider.classList.add('hidden');
 };
 
 export const showList = () => {
   message.classList.add('hidden');
   message.classList.remove('visible');
 
-  ul.classList.add('visible');
-  ul.classList.remove('hidden');
+  slider.classList.add('visible');
+  slider.classList.remove('hidden');
 };
 
 (function (a, b) {

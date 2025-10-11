@@ -30,6 +30,13 @@ body {
   flex-direction: column;
 }
 
+#slider {
+  position: absolute;
+  display: flex;
+  left: 100vw;
+  gap: 3vw;
+}
+
 h1 {
   color: var(--blue);
   font-family: 'get_schwifty';
@@ -40,10 +47,8 @@ h1 {
 
 ul {
   background-color: var(--background_body);
-  position: absolute;
   display: flex;
   box-sizing: border-box;
-  left: 100vw;
   margin: 0;
   padding: 0;
 }
@@ -134,13 +139,20 @@ li {
   left: 70%;
 }
 
-@media (min-width: 500px) {
+@media (max-width: 999px) {
   body {
     font-size: 10px;
+  }
+
+  li {
+    width: 10vw;
   }
 }
 @media (min-width: 1000px) {
   body {
     font-size: 12px;
+  }
+  li {
+    width: 15vw;
   }
 }
