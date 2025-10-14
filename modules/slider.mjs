@@ -152,7 +152,6 @@ export class Slider {
     statusP.classList.add('status');
 
     const imgContainer = document.createElement('div');
-    imgContainer.style.height = `${this.liWidth}px`;
     imgContainer.classList.add('img_container');
 
     const _image = document.createElement('div');
