@@ -14,6 +14,7 @@ export class Slider {
   }
 
   setCSSParams() {
+    console.log(window.innerWidth);
     const liElement = document.querySelector('li');
     this.liWidth = parseFloat(
       window.getComputedStyle(liElement).getPropertyValue('width')
