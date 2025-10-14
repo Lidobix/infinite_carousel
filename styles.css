@@ -192,7 +192,7 @@ li {
     font-size: 8px;
   }
   li {
-    width: 34vw;
+    width: 34rem;
   }
   .card {
     flex-direction: row;
@@ -207,7 +207,7 @@ li {
 
   .status {
     top: 10%;
-    left: 39%;
+    left: 41%;
   }
 }
 
@@ -215,47 +215,27 @@ li {
   html {
     font-size: 12px;
   }
-
-  li {
-    /* width: 10vw; */
-  }
-}
-
-@media (min-width: 1280px) {
-  html {
-    /* font-size: 18px; */
-  }
 }
 
 @media (min-width: 1440px) {
   html {
     font-size: 10px;
   }
-  li {
-    /* width: 15vw; */
-  }
 }
 @media (min-width: 1600px) {
   html {
     font-size: 16px;
   }
-  li {
-    /* width: 15vw; */
-  }
 }
+
 @media (min-width: 3000px) {
   html {
     font-size: 24px;
   }
-  li {
-    /* width: 15vw; */
-  }
 }
+
 @media (min-width: 3400px) {
   html {
     font-size: 28px;
-  }
-  li {
-    /* width: 15vw; */
   }
 }
