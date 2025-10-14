@@ -147,22 +147,26 @@ export class Slider {
     const card = document.createElement('div');
     card.classList.add('card');
 
+    const statusContainer = document.createElement('div');
+    statusContainer.id = 'statusContainer';
+
     const statusP = document.createElement('span');
     statusP.innerText = `${statusIcon[data.status.toLowerCase()]}`;
     statusP.classList.add('status');
+    statusContainer.appendChild(statusP);
 
     const imgContainer = document.createElement('div');
-    imgContainer.classList.add('img_container');
+    imgContainer.id = 'imgContainer';
 
     const _image = document.createElement('div');
     _image.style.backgroundImage = `url(${data.image})`;
     _image.classList.add('_image');
 
     imgContainer.appendChild(_image);
-    imgContainer.append(statusP);
+    imgContainer.append(statusContainer);
 
-    const description = document.createElement('div');
-    description.classList.add('description');
+    const descriptionContainer = document.createElement('div');
+    descriptionContainer.id = 'descriptionContainer';
 
     const nameContainer = document.createElement('div');
     const nameP = document.createElement('p');
@@ -178,11 +182,11 @@ export class Slider {
     episodesContainer.appendChild(episodesP);
     episodesContainer.id = 'episodesContainer';
 
-    description.append(nameContainer);
-    description.append(episodesContainer);
+    descriptionContainer.append(nameContainer);
+    descriptionContainer.append(episodesContainer);
 
     card.appendChild(imgContainer);
-    card.appendChild(description);
+    card.appendChild(descriptionContainer);
 
     return card;
   }

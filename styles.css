@@ -111,13 +111,20 @@ li {
   box-sizing: border-box;
 }
 
-.img_container {
+#imgContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 3rem;
   height: 20rem;
   width: 20rem;
+  position: relative;
+}
+
+#statusContainer {
+  position: absolute;
+  top: 6%;
+  right: 10%;
 }
 
 ._image {
@@ -136,7 +143,7 @@ li {
   -webkit-filter: drop-shadow(0 0 1.2rem var(--green));
 }
 
-.description {
+#descriptionContainer {
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -147,7 +154,7 @@ li {
   margin-top: 1rem;
 }
 
-.description p {
+#descriptionContainer p {
   margin: 0;
   padding: 0;
 }
@@ -178,12 +185,9 @@ li {
 }
 
 .status {
-  position: absolute;
   text-shadow: 0.1rem 0.1rem 1rem var(--blue), 0.1rem 0.1rem 1rem var(--blue),
     0.1rem 0.1rem 1rem var(--blue), 0.1rem 0.1rem 1rem var(--blue);
-  font-size: 1.9rem;
-  top: 8%;
-  left: 72%;
+  font-size: 2rem;
 }
 
 @media (max-height: 500px) and (orientation: landscape) {
@@ -198,26 +202,21 @@ li {
     padding-right: 1rem;
   }
 
-  .img_container {
+  #imgContainer {
     margin: 2rem;
     width: 40rem;
     aspect-ratio: 1;
     height: auto;
   }
 
-  .description {
+  #descriptionContainer {
     margin-top: 0;
-  }
-
-  .status {
-    top: 10%;
-    left: 41%;
   }
 }
 
 @media (min-width: 1024px) {
   html {
-    font-size: 12px;
+    font-size: 8px;
   }
 }
 
@@ -228,18 +227,18 @@ li {
 }
 @media (min-width: 1600px) {
   html {
-    font-size: 16px;
+    font-size: 12px;
   }
 }
 
 @media (min-width: 3000px) {
   html {
-    font-size: 24px;
+    font-size: 22px;
   }
 }
 
 @media (min-width: 3400px) {
   html {
-    font-size: 28px;
+    font-size: 26px;
   }
 }

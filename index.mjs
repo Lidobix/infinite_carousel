@@ -17,10 +17,5 @@ const launchSlider = () => {
 launchSlider();
 
 window.addEventListener('orientationchange', () => {
-  if (isLandscape()) {
-    showList();
-    launchSlider();
-  } else {
-    showMessage();
-  }
+  launchSlider();
 });
