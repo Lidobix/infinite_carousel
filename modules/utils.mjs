@@ -24,8 +24,3 @@ function getRandomInt(min, max) {
   const maxFloored = Math.floor(max);
   return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
 }
-
-export const isLandscape = () => {
-  const authorizedOrientations = ['landscape-primary', 'landscape-secondary'];
-  return authorizedOrientations.includes(window.screen.orientation.type);
-};

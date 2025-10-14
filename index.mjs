@@ -1,8 +1,7 @@
 import { Slider } from './modules/slider.mjs';
 import { Characters } from './modules/characters.mjs';
-import { isLandscape } from './modules/utils.mjs';
 
-const duration = 10000;
+const duration = window.innerWidth > 500 ? 15000 : 5000;
 const charactersQty = 30;
 
 const characters = new Characters(charactersQty);
@@ -15,7 +14,3 @@ const launchSlider = () => {
 };
 
 launchSlider();
-
-window.addEventListener('orientationchange', () => {
-  launchSlider();
-});
