@@ -2,7 +2,7 @@ import { Slider } from './modules/slider.mjs';
 import { Characters } from './modules/characters.mjs';
 import { isLandscape } from './modules/utils.mjs';
 
-const duration = 5000;
+const duration = 10000;
 const charactersQty = 30;
 
 const characters = new Characters(charactersQty);
