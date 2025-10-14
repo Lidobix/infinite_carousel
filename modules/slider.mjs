@@ -167,7 +167,6 @@ export class Slider {
     const nameContainer = document.createElement('div');
     const nameP = document.createElement('p');
     nameP.innerText = `${data.name}`;
-    // nameP.innerText = `TEXTEDDDSSSSSSSSSSSSSSSSSSSSSSSET  SUPER EXTRA MEGA LONG`;
     nameContainer.appendChild(nameP);
     nameContainer.id = 'nameContainer';
 
