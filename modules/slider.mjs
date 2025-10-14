@@ -2,7 +2,7 @@ export class Slider {
   constructor(entryDatas, duration) {
     this.entryDatas = entryDatas;
     this.duration = duration;
-    this.listQty = 10;
+    this.listQty = 2;
     this.ul;
     this.liWidth = 0;
     this.ulWidth = 0;
@@ -107,7 +107,7 @@ export class Slider {
 
     if (firstListRight < 0) {
       const sliderAnimation = this.slider.getAnimations()[0];
-      this.slider.style.left = firstListRight + this.ulGap + 'px';
+      this.slider.style.marginLeft = firstListRight + this.ulGap + 'px';
 
       firstList.remove();
       this.drawList();
@@ -147,25 +147,11 @@ export class Slider {
     const card = document.createElement('div');
     card.classList.add('card');
 
-    const description = document.createElement('div');
-    description.classList.add('description');
-
-    const nameP = document.createElement('p');
-    nameP.innerText = `${data.name}`;
-    nameP.classList.add('name');
-
-    const episodesP = document.createElement('p');
-    episodesP.innerText = `Appears in ${data.episode.length} episode${
-      data.episode.length > 1 ? 's' : ''
-    }`;
-    episodesP.classList.add('episodes');
-
     const statusP = document.createElement('span');
     statusP.innerText = `${statusIcon[data.status.toLowerCase()]}`;
     statusP.classList.add('status');
 
     const imgContainer = document.createElement('div');
-    imgContainer.style.height = `${this.liWidth}px`;
     imgContainer.classList.add('img_container');
 
     const _image = document.createElement('div');
@@ -175,8 +161,25 @@ export class Slider {
     imgContainer.appendChild(_image);
     imgContainer.append(statusP);
 
-    description.append(nameP);
-    description.append(episodesP);
+    const description = document.createElement('div');
+    description.classList.add('description');
+
+    const nameContainer = document.createElement('div');
+    const nameP = document.createElement('p');
+    nameP.innerText = `${data.name}`;
+    nameContainer.appendChild(nameP);
+    nameContainer.id = 'nameContainer';
+
+    const episodesContainer = document.createElement('div');
+    const episodesP = document.createElement('p');
+    episodesP.innerText = `Appears in ${data.episode.length} episode${
+      data.episode.length > 1 ? 's' : ''
+    }`;
+    episodesContainer.appendChild(episodesP);
+    episodesContainer.id = 'episodesContainer';
+
+    description.append(nameContainer);
+    description.append(episodesContainer);
 
     card.appendChild(imgContainer);
     card.appendChild(description);
