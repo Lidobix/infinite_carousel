@@ -1,12 +1,16 @@
-export const setRandomList = (params) => {
-  const { qty, max } = params;
+export const setRandomList = ({
+  count,
+  minValue,
+  maxValue,
+  allowDuplicates = true,
+}) => {
   const numbers = [];
 
-  for (let i = 0; i < qty; i++) {
+  for (let i = 0; i < count; i++) {
     const chooseNewNumber = () => {
-      const number = getRandomInt(0, max);
+      const number = getRandomInt(minValue, maxValue);
 
-      if (numbers.includes(number)) {
+      if (!allowDuplicates && numbers.includes(number)) {
         chooseNewNumber();
       } else {
         numbers.push(number);
