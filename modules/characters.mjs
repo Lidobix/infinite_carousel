@@ -10,7 +10,12 @@ export class Characters {
     return new Promise((resolve, reject) => {
       this.getCharactersCount()
         .then((count) => {
-          return setRandomList({ qty: this.charactersQty, max: count });
+          return setRandomList({
+            count: this.charactersQty,
+            minValue: 0,
+            maxValue: count,
+            allowDuplicates: false,
+          });
         })
         .then((indexes) => {
           return this.getCharacters(indexes);

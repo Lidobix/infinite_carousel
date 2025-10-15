@@ -1,5 +1,8 @@
-import { Slider } from './modules/slider.mjs';
-import { Characters } from './modules/characters.mjs';
+import { Slider } from './modules/Slider.mjs';
+import { Characters } from './modules/Characters.mjs';
+import { Graphics } from './modules/graphics.mjs';
+
+const graphics = new Graphics();
 
 const duration = window.innerWidth > 500 ? 15000 : 5000;
 const charactersQty = 30;
@@ -13,4 +16,7 @@ const launchSlider = () => {
   });
 };
 
-launchSlider();
+window.onload = () => {
+  graphics.drawBackground();
+  launchSlider();
+};
