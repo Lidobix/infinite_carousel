@@ -18,15 +18,12 @@ html {
   --yellow: #cfd74d;
   --green: #4eed3f;
   font-size: 10px;
-  overflow-x: hidden;
+  overflow: hidden;
   height: 100%;
 }
 
 canvas {
   position: absolute;
-  box-sizing: border-box;
-  height: 100%;
-  width: 100%;
 }
 
 body {
@@ -75,7 +72,7 @@ section {
 #slider {
   position: relative;
   display: flex;
-  gap: 3rem;
+  gap: 4rem;
   margin-left: 100vw;
 }
 
@@ -112,9 +109,10 @@ li {
   -moz-border-radius: 1rem;
   -ms-border-radius: 1rem;
   -o-border-radius: 1rem;
-
   align-items: center;
   box-sizing: border-box;
+  filter: drop-shadow(0 0 1.2rem white);
+  -webkit-filter: drop-shadow(0 0 1rem white);
 }
 
 #imgContainer {
@@ -129,8 +127,8 @@ li {
 
 #statusContainer {
   position: absolute;
-  top: 6%;
-  right: 10%;
+  top: 4%;
+  right: 9%;
 }
 
 ._image {
@@ -145,8 +143,8 @@ li {
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
-  filter: drop-shadow(0 0 1.2rem var(--green));
-  -webkit-filter: drop-shadow(0 0 1.2rem var(--green));
+  filter: drop-shadow(0 0 1.5rem var(--green));
+  -webkit-filter: drop-shadow(0 0 1.5rem var(--green));
 }
 
 #descriptionContainer {
@@ -191,9 +189,9 @@ li {
 }
 
 .status {
-  text-shadow: 0.1rem 0.1rem 1rem var(--blue), 0.1rem 0.1rem 1rem var(--blue),
-    0.1rem 0.1rem 1rem var(--blue), 0.1rem 0.1rem 1rem var(--blue);
-  font-size: 2rem;
+  text-shadow: -0.2rem 0rem 0 black, 0.2rem 0rem black, 0rem 0.2rem black,
+    0rem -0.2rem black;
+  font-size: 2.5rem;
 }
 
 @media (max-height: 500px) and (orientation: landscape) {
