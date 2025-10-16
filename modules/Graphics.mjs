@@ -3,22 +3,36 @@ import { setRandomList } from './utils.mjs';
 export class Graphics {
   constructor() {
     this.background = document.getElementById('background');
-    this.screen = { width: screen.width, height: screen.height };
     this.stars = { density: 0.01, dummySpacing: 25 };
+    this.events = this.setEvents();
   }
 
-  drawBackground = () => {
-    if (this.background.getContext) {
-      this.setStarsDatas();
+  setEvents() {
+    window.addEventListener('orientationchange', () => {
+      if (!this.background.getContext) {
+        return;
+      }
+
+      this.updateScreenDatas();
+      const { xValues: oldXValues, yValues: oldYValues } = this.stars;
+
+      this.stars.xValues = oldYValues;
+      this.stars.yValues = oldXValues;
+
       this.drawStars();
-    }
-  };
+    });
+  }
+
+  updateScreenDatas() {
+    this.background.width = screen.width;
+    this.background.height = screen.height;
+
+    this.screen = { width: screen.width, height: screen.height };
+  }
 
   setStarsDatas() {
     const { dummySpacing, density } = this.stars;
     const { width, height } = this.screen;
-    this.background.width = width;
-    this.background.height = height;
 
     const screenDensity = (height * width) / dummySpacing;
     const starsQty = density * screenDensity;
@@ -53,4 +67,12 @@ export class Graphics {
       ctx.fill();
     });
   }
+
+  drawBackground = () => {
+    if (this.background.getContext) {
+      this.updateScreenDatas();
+      this.setStarsDatas();
+      this.drawStars();
+    }
+  };
 }
